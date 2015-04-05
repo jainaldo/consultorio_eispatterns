@@ -20,11 +20,10 @@ class DoctorsOfficeRuleBase(CoreRules):
         except ShouldNotSatisfied: return False
         else: return True
 
-
     @rule('association')
-    def should_be_instance_of_atendente(self, associated):
-        '''Associated object should be instance of Atendente'''
-        from consultorio.decorators.atendente_decorator import Atendente
-        try: associated |should| be_instance_of(Atendente)
+    def should_be_instance_of_medico(self, associated):
+        '''Associated object should be instance of Medico'''
+        from consultorio.decorators.medico_decorator import MedicoDecorator
+        try: associated |should| be_instance_of(MedicoDecorator)
         except ShouldNotSatisfied: return False
         else: return True

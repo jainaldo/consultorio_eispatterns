@@ -20,7 +20,7 @@ class PacienteDecorator(Decorator):
     def pagar_consulta(self, numero):
         consulta = self.consultas_agendadas[numero]
 
-        if consulta.atendido == True and consulta.pago == False:
-            consulta.pago = True
+        if consulta.atendida == True and consulta.paga == False:
+            consulta.paga = True
         
 

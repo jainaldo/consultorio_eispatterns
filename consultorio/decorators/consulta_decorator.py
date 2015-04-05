@@ -16,9 +16,9 @@ class ConsultaDecorator(Decorator):
         self.description = "Uma consulta de consultorio"
         self.numero = numero
         self.valor = 0
-        self.pago = False
-        self.agendado = False
-        self.atendido = False
+        self.paga = False
+        self.agendada = False
+        self.atendida = False
 
     def set_valor_da_consulta(self, valor):
         ''' Valor da consulta'''

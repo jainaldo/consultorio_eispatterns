@@ -15,6 +15,7 @@ class AtendenteDecoratorSpec(unittest.TestCase):
     ''' Atendente Decorator Spec '''
 
     def setUp(self):
+        RuleManager.rule_base = DoctorsOfficeRuleBase()
         self.atendente_decorator = AtendenteDecorator("Pedro")
         #test doubles won't work given type checking rules, using classic
         self.pessoa = Person()
@@ -35,6 +36,7 @@ class AtendenteDecoratorSpec(unittest.TestCase):
 
 
     def test_solicita_agendamento(self):
+
         pessoa_paciente = Person()
         paciente = PacienteDecorator("Lucas")
         paciente.decorate(pessoa_paciente)

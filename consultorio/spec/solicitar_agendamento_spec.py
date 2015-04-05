@@ -10,9 +10,12 @@ from eispatterns.domain.supportive.rule_manager import RuleManager
 
 class SolicitarAgendamentoSpec(unittest.TestCase):
 
+    def setUp(self):
+        RuleManager.rule_base = DoctorsOfficeRuleBase()
+
+
     def test_check_associacao_com_consulta_e_paciente(self):
         #set the rule base
-        RuleManager.rule_base = DoctorsOfficeRuleBase()
         #
         paciente = PacienteDecorator('Pedro')
         consulta = ConsultaDecorator('abc-123')
