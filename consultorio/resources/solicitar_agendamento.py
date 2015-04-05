@@ -18,5 +18,5 @@ class SolicitarAgendamento(WorkItem):
         if not RuleManager.get_instance().check_rule('should_be_instance_of_paciente', paciente):
            raise AssociationError('Paciente instance expected, instead %s passed' % type(paciente))
         self.paciente = paciente
-        consulta.agendado = True
+        consulta.agendada = True
         paciente.consultas_agendadas[consulta.numero] = consulta

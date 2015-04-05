@@ -34,7 +34,8 @@ class PacienteDecoratorSpec(unittest.TestCase):
         self.paciente_decorator.generate_register('123456-7')
         self.paciente_decorator.register |should| equal_to('123456-7')
 
-    def test_paga_consulta_atendidas(self):
+
+    def test_paga_apenas_consulta_atendidas(self):
         ma_consulta = Machine()
         self.consulta = ConsultaDecorator("abc-1")
         self.consulta.set_valor_da_consulta(50)
@@ -47,21 +48,15 @@ class PacienteDecoratorSpec(unittest.TestCase):
         self.medico.decorate(pe_medico)
 
         self.atendente.solicitar_agendamento(self.consulta, self.paciente_decorator, "20/01/2014")
+
+        #consulta nao atendida, nao paga a consulta
+        self.paciente_decorator.pagar_consulta("abc-1")
+        self.consulta.paga |should| equal_to(False)
+
+
         self.medico.atender_consulta(self.consulta)
 
+        #consulta atendida, paga a consulta
         self.paciente_decorator.pagar_consulta("abc-1")
         self.consulta.paga |should| equal_to(True)
-
-    def test_so_paga_consulta_atendidas(self):
-        ma_consulta = Machine()
-        self.consulta = ConsultaDecorator("abc-2")
-        self.consulta.set_valor_da_consulta(50)
-
-        pe_atendente = Person()
-        self.atendente.decorate(pe_atendente)
-
-        self.atendente.solicitar_agendamento(self.consulta, self.paciente_decorator, "20/01/2014")
-
-        self.paciente_decorator.pagar_consulta("abc-2")
-        self.consulta.paga |should| equal_to(False)
 

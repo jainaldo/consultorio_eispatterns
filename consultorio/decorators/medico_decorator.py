@@ -16,6 +16,6 @@ class MedicoDecorator(Decorator):
         self.crm = crm
 
     def atender_consulta(self, consulta):
-        if not consulta.atendida:
-            consulta_antedida = AtenderConsulta(consulta, self)
-            self.decorated.input_area[consulta.numero] = consulta_antedida
+        if consulta.agendada and not consulta.atendida:
+            consulta_atendida = AtenderConsulta(consulta, self)
+            self.decorated.input_area[consulta.numero] = consulta_atendida

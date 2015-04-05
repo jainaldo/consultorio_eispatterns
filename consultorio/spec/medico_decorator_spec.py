@@ -1,5 +1,5 @@
 import unittest
-from should_dsl import should
+from should_dsl import should, should_not
 from eispatterns.domain.node.person import Person
 from eispatterns.domain.node.machine import Machine
 from consultorio.decorators.medico_decorator import MedicoDecorator
@@ -28,24 +28,30 @@ class MedicoDecoratorSpec(unittest.TestCase):
         decorate |should| equal_to(False)
 
 
-
-    def test_atender_uma_consulta(self):
+    def test_atende_apenas_consultas_agendadas(self):
         ma_consulta = Machine()
-        consulta = ConsultaDecorator("abc-2")
+        consulta = ConsultaDecorator("abc-3")
         consulta.set_valor_da_consulta(30)
 
         pe_atendente = Person()
-        atendente = AtendenteDecorator("Joao")
+        atendente = AtendenteDecorator("Fernando")
         atendente.decorate(pe_atendente)
 
         pe_paciente = Person()
-        paciente = PacienteDecorator("Pedro")
+        paciente = PacienteDecorator("Lucas")
         paciente.decorate(pe_paciente)
-
-        atendente.solicitar_agendamento(consulta, paciente, "20/01/2014")
 
         self.medico_decorator.decorate(self.pessoa)
         self.medico_decorator.atender_consulta(consulta)
 
-        self.pessoa.input_area |should| contain("abc-2")
+        #consulta nao agendada.
+        self.pessoa.input_area |should_not| contain("abc-3")
+        consulta.atendida |should| equal_to(False)
+
+
+        atendente.solicitar_agendamento(consulta, paciente, "20/01/2014")
+        self.medico_decorator.atender_consulta(consulta)
+
+        #consulta agendada
+        self.pessoa.input_area |should| contain("abc-3")
         consulta.atendida |should| equal_to(True)

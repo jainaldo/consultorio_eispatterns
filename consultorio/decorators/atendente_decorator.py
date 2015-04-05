@@ -19,7 +19,8 @@ class AtendenteDecorator(Decorator):
 
 
     def solicitar_agendamento(self, consulta, paciente, data):
-    	''' Solicitacao de agendamento de consulta para um paciente'''
-    	agendamento = SolicitarAgendamento(consulta, paciente, data)
+        ''' Solicitacao de agendamento de consulta para um paciente'''
+        if not consulta.agendada:
+           agendamento = SolicitarAgendamento(consulta, paciente, data)
 
-    	self.decorated.input_area[agendamento.consulta.numero] = agendamento
+           self.decorated.input_area[agendamento.consulta.numero] = agendamento

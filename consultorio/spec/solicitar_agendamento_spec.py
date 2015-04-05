@@ -27,4 +27,4 @@ class SolicitarAgendamentoSpec(unittest.TestCase):
         paciente2 = PacienteDecorator('Joao')
         consulta2 = ConsultaDecorator('abc-456')
         SolicitarAgendamento(consulta2, paciente2, '22/03/2015')
-        consulta2.agendado |should| equal_to(True)
+        consulta2.agendada |should| equal_to(True)

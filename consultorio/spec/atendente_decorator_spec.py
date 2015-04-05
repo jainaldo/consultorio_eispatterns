@@ -1,5 +1,5 @@
 import unittest
-from should_dsl import should
+from should_dsl import should, should_not
 from eispatterns.domain.node.person import Person
 from eispatterns.domain.node.machine import Machine
 from consultorio.decorators.atendente_decorator import AtendenteDecorator
@@ -36,6 +36,7 @@ class AtendenteDecoratorSpec(unittest.TestCase):
 
 
     def test_solicita_agendamento(self):
+        '''solicita agendamento apenas para consultas nao agendadas '''
 
         pessoa_paciente = Person()
         paciente = PacienteDecorator("Lucas")
@@ -47,6 +48,20 @@ class AtendenteDecoratorSpec(unittest.TestCase):
         consulta.set_valor_da_consulta(10)
 
         self.atendente_decorator.decorate(self.pessoa)
+
+        #consulta ainda nao agendada
         self.atendente_decorator.solicitar_agendamento(consulta, paciente, "20/01/2014")
+
         self.pessoa.input_area |should| contain("0123")
         paciente.consultas_agendadas["0123"]|should| be(consulta)
+        consulta.agendada |should | equal_to(True)
+
+        pessoa_paciente2 = Person()
+        paciente2 = PacienteDecorator("Igor")
+        paciente2.decorate(pessoa_paciente2)
+
+        #consulta ja foi agendada
+        self.atendente_decorator.solicitar_agendamento(consulta, paciente2, "20/01/2014")
+
+        self.pessoa.input_area |should_not| have(2).elements
+        paciente2.consultas_agendadas |should_not| include_keys('0123')
