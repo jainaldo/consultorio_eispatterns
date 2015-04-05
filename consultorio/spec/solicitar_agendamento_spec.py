@@ -19,3 +19,9 @@ class SolicitarAgendamentoSpec(unittest.TestCase):
         (SolicitarAgendamento, 'Eu nao sou uma consulta', paciente, "02/03/2014") |should| throw(AssociationError)
         (SolicitarAgendamento, consulta, 'Eu nao sou um paciente', "02/03/2014") |should| throw(AssociationError)
         (SolicitarAgendamento, consulta, paciente, "02/03/2014") |should_not| throw(AssociationError)
+
+    def test_verifica_se_consulta_foi_agendada(self):
+        paciente2 = PacienteDecorator('Joao')
+        consulta2 = ConsultaDecorator('abc-456')
+        SolicitarAgendamento(consulta2, paciente2, '22/03/2015')
+        consulta2.agendado |should| equal_to(True)

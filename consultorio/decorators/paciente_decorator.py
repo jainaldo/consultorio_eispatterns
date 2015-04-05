@@ -11,8 +11,16 @@ class PacienteDecorator(Decorator):
         Decorator.__init__(self)
         self.description = "Supplies the basis for representing Paciente"
         self.name = nome
-        self.consultas_agendadas = []
+        self.consultas_agendadas = {}
 
     def generate_register(self, register):
         ''' generates the register number for the paciente '''
         self.register = register
+
+    def pagar_consulta(self, numero):
+        consulta = self.consultas_agendadas[numero]
+
+        if consulta.atendido == True and consulta.pago == False:
+            consulta.pago = True
+        
+

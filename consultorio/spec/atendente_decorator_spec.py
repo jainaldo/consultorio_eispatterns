@@ -47,4 +47,4 @@ class AtendenteDecoratorSpec(unittest.TestCase):
         self.atendente_decorator.decorate(self.pessoa)
         self.atendente_decorator.solicitar_agendamento(consulta, paciente, "20/01/2014")
         self.pessoa.input_area |should| contain("0123")
-        paciente.consultas_agendadas|should| contain(self.pessoa.input_area['0123'])
+        paciente.consultas_agendadas["0123"]|should| be(consulta)
