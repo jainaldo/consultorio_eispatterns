@@ -44,7 +44,7 @@ class MedicoDecoratorSpec(unittest.TestCase):
         self.medico_decorator.decorate(self.pessoa)
         self.medico_decorator.atender_consulta(consulta)
 
-        #consulta nao agendada.
+        #consulta nao agendada, medico nao atende.
         self.pessoa.input_area |should_not| contain("abc-3")
         consulta.atendida |should| equal_to(False)
 
@@ -52,6 +52,6 @@ class MedicoDecoratorSpec(unittest.TestCase):
         atendente.solicitar_agendamento(consulta, paciente, "20/01/2014")
         self.medico_decorator.atender_consulta(consulta)
 
-        #consulta agendada
+        #consulta agendada, medico pode atender
         self.pessoa.input_area |should| contain("abc-3")
         consulta.atendida |should| equal_to(True)

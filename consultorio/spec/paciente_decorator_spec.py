@@ -49,14 +49,14 @@ class PacienteDecoratorSpec(unittest.TestCase):
 
         self.atendente.solicitar_agendamento(self.consulta, self.paciente_decorator, "20/01/2014")
 
-        #consulta nao atendida, nao paga a consulta
+        #consulta nao atendida, paciente nao paga a consulta
         self.paciente_decorator.pagar_consulta("abc-1")
         self.consulta.paga |should| equal_to(False)
 
 
         self.medico.atender_consulta(self.consulta)
 
-        #consulta atendida, paga a consulta
+        #consulta atendida, paciente paga a consulta
         self.paciente_decorator.pagar_consulta("abc-1")
         self.consulta.paga |should| equal_to(True)
 
